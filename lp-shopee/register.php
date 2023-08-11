@@ -1,0 +1,149 @@
+<?php
+session_start();
+
+	include("connection.php");
+	include("function.php");
+
+	if ($_SERVER['REQUEST_METHOD'] == "POST") 
+	{
+		// smth was posted
+		$user_name = $_POST['username'];
+		$password = $_POST['password'];
+
+		if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
+		{
+			//save to db
+			$user_id = random_num(20);
+			$query = "insert into users (user_id,user_name,password) values ('$user_id','$user_name','$password')";
+			mysqli_query($con,$query);
+
+			header("Location: login.php");
+			die;
+		}
+		else
+		{
+			echo "Please enter valid information!";
+		}
+	}
+
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<style>
+		*{
+		    padding: 0;
+		    margin: 0;
+		    box-sizing: border-box;
+		    font-family: 'Poppins', sans-serif;
+		}
+
+		body{
+		    background: #fdfdfd;
+		}
+
+		.container{
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    min-height: 90vh;
+		}
+
+		.box{
+		    background: #fdfdfd;
+		    display: flex;
+		    flex-direction: column;
+		    padding: 25px 25px;
+		    border-radius: 15px;
+		}
+
+		.form-box{
+		    width: 450px;
+		    margin: 0px 10px;
+		    background: #ffffff80;
+		    color: #000;
+		}
+
+		.form-box header{
+		    font-size: 30px;
+		    color: #000;
+		    font-weight: 600;
+		    padding-bottom: 10px;
+		    margin-bottom: 10px;
+		}
+
+		.form-box form .field{
+		    display: flex;
+		    margin-bottom: 10px;
+		    flex-direction: column;
+		}
+
+		.form-box form .input input{
+		    height: 35px;
+		    width: 100%;
+		    font-size: 16px;
+
+		    padding: 0 10px;
+		    border-radius: 15px;
+		    border: 1px solid #ccc;
+		    outline: none;
+		    margin-bottom: 10px;
+		}
+
+		.btn{
+		    height: 40px;
+		    font-size: 15px;
+		    font-weight: 500;
+		    border: none;
+		    border-radius: 10px;
+		    color: #fff;
+		    background: #fb5430;
+		    cursor: pointer;
+		}
+		.btn:hover{
+		    opacity: 0.5;
+		}
+
+		.submit{
+		    width: 100%;
+		}
+
+		.links{
+		   margin-bottom: 15px; 
+		   color: #000;
+		}
+		</style>
+    </head>
+
+    <body>   
+        <div class="container">
+            <div class="box form-box">
+                <header>Sign up</header>
+                <form action="" method="post">
+                    
+                    <div class="field input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="field input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div class="field">
+                            <input type="submit" class="btn" name="submit" value="Sign up" required>
+                    </div>
+                    <div class="links">
+                        Already have an account? <a href="login.php">Sign in</a>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

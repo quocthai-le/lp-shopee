@@ -1,0 +1,3 @@
+- Navbar bị lỗi hover bar từ sau mục Best Buy
+- Hình trong mục Team đổi sang định dạng điện thoại bị sai kích thước
+- Login phần homepage.php chưa trỏ vào được
